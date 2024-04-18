@@ -34,12 +34,27 @@ window.onload = function() {
 
   let randomSuit = generateRandomSuit();
   let randomValue = generateRandomValue();
-  document.querySelector(".card").innerHTML =
-    randomSuit + randomValue + randomSuit;
+  document.querySelector(".cardTop").innerHTML = randomSuit;
+  document.querySelector(".cardMiddle").innerHTML = randomValue;
+  document.querySelector(".cardBottom").innerHTML = randomSuit;
 
   if (randomSuit === "♦" || randomSuit === "♥") {
-    document.querySelector(".card").style.color = "red";
+    document.querySelector(".cardTop").style.color = "red";
+    document.querySelector(".cardBottom").style.color = "red";
   }
 
   console.log(randomSuit + randomValue + randomSuit);
+  const refreshTimer = document.getElementById("refresh-timer");
+
+  let timerInSeconds = 0;
+
+  setInterval(() => {
+    timerInSeconds += 1;
+
+    // refreshTimer.innerHTML = `New card in 10: ${timerInSeconds} seconds`;
+
+    if (timerInSeconds >= 10) {
+      window.location.reload();
+    }
+  }, 1000);
 };
