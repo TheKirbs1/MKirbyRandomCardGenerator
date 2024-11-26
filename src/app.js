@@ -1,15 +1,9 @@
 /* eslint-disable */
 import "bootstrap";
 import "./style.css";
-
-import "./assets/img/rigo-baby.jpg";
-import "./assets/img/4geeks.ico";
-
 window.onload = function() {
-  //write your code here
-  let suit = ["♦", "♥", "♠", "♣"];
-  let value = [
-    "1",
+  let suits = ["♦", "♥", "♠", "♣"];
+  let values = [
     "2",
     "3",
     "4",
@@ -25,36 +19,46 @@ window.onload = function() {
     "A"
   ];
 
-  function generateRandomSuit() {
-    return suit[Math.floor(Math.random() * suit.length)];
-  }
-  function generateRandomValue() {
-    return value[Math.floor(Math.random() * value.length)];
-  }
-
-  let randomSuit = generateRandomSuit();
-  let randomValue = generateRandomValue();
-  document.querySelector(".cardTop").innerHTML = randomSuit;
-  document.querySelector(".cardMiddle").innerHTML = randomValue;
-  document.querySelector(".cardBottom").innerHTML = randomSuit;
-
-  if (randomSuit === "♦" || randomSuit === "♥") {
-    document.querySelector(".cardTop").style.color = "red";
-    document.querySelector(".cardBottom").style.color = "red";
-  }
-
-  console.log(randomSuit + randomValue + randomSuit);
-  const refreshTimer = document.getElementById("refresh-timer");
-
-  let timerInSeconds = 0;
-
-  setInterval(() => {
-    timerInSeconds += 1;
-
-    // refreshTimer.innerHTML = `New card in 10: ${timerInSeconds} seconds`;
-
-    if (timerInSeconds >= 10) {
-      window.location.reload();
+  let deck = [];
+  for (let suit of suits) {
+    for (let value of values) {
+      deck.push({ suit, value });
     }
-  }, 1000);
+  }
+
+  deck = deck.sort(() => Math.random() - 0.5);
+
+  function drawCard() {
+    if (deck.length === 0) {
+      alert("The deck is empty!");
+      return;
+    }
+
+    let { suit, value } = deck.pop();
+
+    document.querySelector(".cardTop").innerHTML = suit;
+    document.querySelector(".cardMiddle").innerHTML = value;
+    document.querySelector(".cardBottom").innerHTML = suit;
+
+    if (suit === "♦" || suit === "♥") {
+      document.querySelector(".cardTop").style.color = "red";
+      document.querySelector(".cardBottom").style.color = "red";
+    } else {
+      document.querySelector(".cardTop").style.color = "black";
+      document.querySelector(".cardBottom").style.color = "black";
+    }
+
+    const cardElement = document.getElementById("current-card");
+    cardElement.classList.add("flipped");
+
+    document.getElementById(
+      "cards-left"
+    ).innerHTML = `Cards left: ${deck.length}`;
+
+    setTimeout(() => {
+      cardElement.classList.remove("flipped");
+    }, 2000);
+  }
+
+  document.getElementById("cardButton").addEventListener("click", drawCard);
 };

@@ -13,15 +13,24 @@
     <link rel="shortcut icon" href="./4geeks.ico" />
   </head>
   <body>
-    <!-- <input type="number" id="heightSize" value="height" /> -->
-    <div id="refresh-timer"></div>
-    <div class="card display:inline-block">
-      <div class="cardTop"></div>
-      <div class="cardMiddle"></div>
-      <div class="cardBottom"></div>
+    <div id="deck-container">
+      <div id="current-card" class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="cardTop"></div>
+            <div class="cardMiddle"></div>
+            <div class="cardBottom"></div>
+          </div>
+          <div class="card-back"></div>
+        </div>
+      </div>
     </div>
-    <button id="cardButton" onClick="window.location.reload();">
-      New Card
-    </button>
+    <button id="cardButton">Draw Card</button>
+    <div
+      id="cards-left"
+      style="text-align: center; color: white; font-size: 20px; margin-top: 20px;"
+    >
+      Cards left: 52
+    </div>
   </body>
 </html>
